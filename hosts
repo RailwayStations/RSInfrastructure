@@ -1,0 +1,2 @@
+[monitoring]
+monitoring-pi ansible_host=192.168.0.166 ansible_user=pi ansible_python_interpreter=/usr/bin/python3
