@@ -1,8 +1,7 @@
 ---
 - hosts: monitoring
-  roles:
-    - cloudalchemy.prometheus
-    - cloudalchemy.grafana
+  vars_files:
+    - vars/secret-vars.yml
   vars:
     prometheus_targets:
       node:
@@ -11,25 +10,32 @@
         - 192.168.0.229:9100
     grafana_security:
       admin_user: admin
-      admin_password: admin
+      admin_password: "{{vault_grafana_admin_password}}"
     grafana_datasources:
       - name: prometheus
         type: Prometheus
         access: proxy
         url: 'http://127.0.0.1:9090'
         basicAuth: false
+      - name: MySQL
+        type: MySQL
+        host: 192.168.0.229:3306
+        database: rsapi
+        user: readonly
+        password: "{{vault_mysqldb_password}}"
     grafana_dashboards:
       - dashboard_id: 3662
         revision_id: 2
         datasource: prometheus
-    grafana_dashboards:
       - dashboard_id: 13978
         revision_id: 1
-        datasource: prometheus
-        
+        datasource: prometheus        
+  roles:
+    - cloudalchemy.prometheus
+    - cloudalchemy.grafana
 
 - hosts: webserver
-  roles:
-    - cloudalchemy.node_exporter        
   vars:
     node_exporter_web_listen_address: '127.0.0.1:9100'
+  roles:
+    - cloudalchemy.node_exporter        
