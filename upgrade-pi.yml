@@ -1,6 +1,6 @@
 ---
 - name: Playbook for upgrading the RPis
-  hosts: monitoring
+  hosts: pi
   become: true
   become_user: root
   gather_facts: no

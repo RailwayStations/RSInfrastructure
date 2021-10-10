@@ -3,11 +3,12 @@
   vars_files:
     - vars/secret-vars.yml
   vars:
+    prometheus_version: 2.30.3
     prometheus_targets:
       node:
       - targets:
         - localhost:9100
-        - 192.168.0.229:9100
+        - "{{monitoring_target}}:9100"
     grafana_security:
       admin_user: admin
       admin_password: "{{vault_grafana_admin_password}}"
@@ -19,7 +20,7 @@
         basicAuth: false
       - name: MySQL
         type: MySQL
-        host: 192.168.0.229:3306
+        host: "{{monitoring_target}}:3306"
         database: rsapi
         user: readonly
         password: "{{vault_mysqldb_password}}"
@@ -34,8 +35,9 @@
     - cloudalchemy.prometheus
     - cloudalchemy.grafana
 
-- hosts: webserver
+- hosts: railwaystations
   vars:
+    node_exporter_version: 1.2.2
     node_exporter_web_listen_address: '127.0.0.1:9100'
   roles:
     - cloudalchemy.node_exporter        

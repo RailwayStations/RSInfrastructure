@@ -11,6 +11,6 @@ Setup of Prometheus and Grafana via Roles imported from:
 ### Run
 
 ```sh
-ansible-playbook -i hosts monitoring.yml --ask-become-pass --ask-vault-pass
+ansible-playbook -i hosts.yml -l prod monitoring.yml --ask-become-pass --ask-vault-pass
 ```
 
