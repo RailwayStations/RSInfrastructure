@@ -1,0 +1,22 @@
+---
+- name: create monitoring directory
+  become: true
+  file:
+    path: "{{ monitoring_dir }}"
+    state: directory
+    mode: 0755
+
+- name: compose file
+  become: true
+  template:
+    src: "docker-compose.yml.j2"
+    dest: "{{ monitoring_dir }}/docker-compose.yml"
+  notify:
+    - restart monitoring
+
+- name: Run `docker-compose up`
+  become: true
+  community.docker.docker_compose:
+    project_src: "{{ monitoring_dir }}"
+    build: no
+  register: output    
