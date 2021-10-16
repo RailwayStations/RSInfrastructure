@@ -38,6 +38,14 @@
   notify:
     - restart monitoring
 
+- name: blackboxexporter file
+  become: true
+  ansible.builtin.copy:
+    src: "./files/blackboxexporter"
+    dest: "{{ monitoring_dir }}/"
+  notify:
+    - restart monitoring
+
 - name: grafana file
   become: true
   ansible.builtin.copy:

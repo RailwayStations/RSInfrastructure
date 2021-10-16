@@ -23,6 +23,8 @@ services:
       - '--web.console.templates=/etc/prometheus/consoles'
       - '--storage.tsdb.retention.time=200h'
       - '--web.enable-lifecycle'
+      - '--web.external-url=/prometheus/'
+      - '--web.route-prefix=/prometheus/'
     restart: unless-stopped
     expose:
       - 9090
@@ -67,6 +69,20 @@ services:
     labels:
       org.label-schema.group: "monitoring"
 
+  blackboxexporter:
+    image: prom/blackbox-exporter:master
+    container_name: blackboxexporter
+    volumes:
+      - ./blackboxexporter:/config:ro
+    command:
+      - '--config.file=/config/blackbox.yml'
+    expose:
+      - 9115
+    networks:
+      - monitor-net
+    labels:
+      org.label-schema.group: "monitoring"
+
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:{{ cadvisor_version }}
     container_name: cadvisor
@@ -92,8 +108,7 @@ services:
     container_name: grafana
     volumes:
       - grafana_data:/var/lib/grafana
-      - ./grafana/dashboards:/etc/grafana/provisioning/dashboards
-      - ./grafana/datasources:/etc/grafana/provisioning/datasources
+      - ./grafana:/etc/grafana
     environment:
       - GF_SECURITY_ADMIN_USER=${ADMIN_USER:-{{ admin_user }}}
       - GF_SECURITY_ADMIN_PASSWORD=${ADMIN_PASSWORD:-{{ admin_password }}}
@@ -110,10 +125,8 @@ services:
     image: caddy:{{ caddy_version }}
     container_name: caddy
     ports:
-      - "3000:3000"
-      - "9090:9090"
-      - "9093:9093"
-      - "9091:9091"
+      - "80:80"
+      - "443:443"
     volumes:
       - ./caddy:/etc/caddy
     environment:
