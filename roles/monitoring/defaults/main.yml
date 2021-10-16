@@ -1,2 +1,5 @@
 ---
 monitoring_dir: /var/monitoring
+admin_user: admin
+admin_password: admin
+admin_password_hash: JDJhJDE0JE91S1FrN0Z0VEsyWmhrQVpON1VzdHVLSDkyWHdsN0xNbEZYdnNIZm1pb2d1blg4Y09mL0ZP
