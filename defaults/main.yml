@@ -7,3 +7,7 @@
   caddy_version: '2.4.5'
   docker__users:
   - peter
+  monitoring_target: railway-stations.org
+  rsapi_db_url: "{{ monitoring_target }}:3306"
+  rsapi_db_user: readonly
+  rsapi_db: rsapi

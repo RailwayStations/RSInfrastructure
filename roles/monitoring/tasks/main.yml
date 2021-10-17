@@ -54,6 +54,14 @@
   notify:
     - restart monitoring
 
+- name: rsapi datasource
+  become: true
+  template:
+    src: "rsapi-datasource.yml.j2"
+    dest: "{{ monitoring_dir }}/grafana/provisioning/datasources/rsapi-datasource.yml"
+  notify:
+    - restart monitoring    
+
 - name: Run `docker-compose up`
   become: true
   community.docker.docker_compose:
