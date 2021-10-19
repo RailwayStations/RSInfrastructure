@@ -8,7 +8,6 @@
     - admin_password_hash: "{{ vault_admin_password_hash }}"
     - rsapi_db_password: "{{ vault_mysqldb_password }}"
   roles:
-    - docker
     - monitoring
 
 - hosts: railwaystations
