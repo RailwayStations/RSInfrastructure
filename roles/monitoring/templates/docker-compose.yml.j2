@@ -76,6 +76,7 @@ services:
       - ./blackboxexporter:/config:ro
     command:
       - '--config.file=/config/blackbox.yml'
+    restart: unless-stopped
     expose:
       - 9115
     networks:
