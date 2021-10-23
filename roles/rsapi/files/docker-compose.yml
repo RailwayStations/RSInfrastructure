@@ -1,0 +1,20 @@
+version: '2.1'
+
+services:
+
+  rsapi:
+    image: railwaystations/rsapi:latest
+    container_name: rsapi
+    volumes:
+      - /var/rsapi:/var/rsapi
+      - /var/www/fotos:/var/rsapi/photos
+    restart: unless-stopped
+    environment:
+      - RSAPI_LB_CONTEXT=prod
+# using network_mode host, exposing ports has no effect
+#    ports:
+#      - "localhost:8080:8080"
+#      - "localhost:8081:8081"
+    network_mode: "host"
+    labels:
+      org.label-schema.group: "rsapi"

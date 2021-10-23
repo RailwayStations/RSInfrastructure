@@ -1,0 +1,7 @@
+---
+- hosts: railwaystations
+  vars_files:
+    - vars/secret-vars.yml
+    - defaults/main.yml
+  roles:
+    - rsapi

@@ -1,0 +1,27 @@
+---
+- name: create rsapi directory
+  become: true
+  file:
+    path: "{{ rsapi_dir }}"
+    state: directory
+    mode: 0755
+
+- name: rsapi config
+  become: true
+  template:
+    src: "config.yml.j2"
+    dest: "{{ rsapi_dir }}/config.yml"
+
+- name: compose file
+  become: true
+  ansible.builtin.copy:
+    src: "./files/docker-compose.yml"
+    dest: "{{ rsapi_dir }}/"
+
+- name: Run `docker-compose up`
+  become: true
+  community.docker.docker_compose:
+    project_src: "{{ rsapi_dir }}"
+    build: no
+    pull: true
+    recreate: always
