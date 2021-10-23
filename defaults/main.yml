@@ -1,10 +1,10 @@
 ---
-  node_exporter_version: v1.2.2
-  cadvisor_version: v0.42.0
-  prometheus_version: v2.30.3
-  alertmanager_version: v0.23.0
-  grafana_version: '8.2.1'
-  caddy_version: '2.4.5'
+  node_exporter_version: latest
+  cadvisor_version: latest
+  prometheus_version: latest
+  alertmanager_version: latest
+  grafana_version: latest
+  caddy_version: latest
   docker__users:
   - peter
   monitoring_target: railway-stations.org
