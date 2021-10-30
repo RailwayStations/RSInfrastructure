@@ -8,4 +8,17 @@ route:
   group_by: [cluster, alertname]
 
 receivers:
-  name: default-receiver
+  - name: default-receiver
+    webhook_configs:
+      # Whether or not to notify about resolved alerts.
+    - send_resolved: true
+      # The endpoint to send HTTP POST requests to.
+      url: http://goneb:4050/services/hooks/YWxlcnRtYW5hZ2VyX3NlcnZpY2U
+
+      # The HTTP client's configuration.
+      #[ http_config: <http_config> | default = global.http_config ]
+
+      # The maximum number of alerts to include in a single webhook message. Alerts
+      # above this threshold are truncated. When leaving this at its default value of
+      # 0, all alerts are included.
+      max_alerts: 10

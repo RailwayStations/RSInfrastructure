@@ -54,6 +54,23 @@
   notify:
     - restart monitoring
 
+- name: create goneb directories
+  become: true
+  file:
+    path: 
+      - "{{ monitoring_dir }}/goneb/data"
+      - "{{ monitoring_dir }}/goneb/config"
+    state: directory
+    mode: 0755
+
+- name: goneb config
+  become: true
+  template:
+    src: "goneb.config.yaml.j2"
+    dest: "{{ monitoring_dir }}/goneb/config/config.yaml"
+  notify:
+    - restart monitoring    
+
 - name: rsapi datasource
   become: true
   template:

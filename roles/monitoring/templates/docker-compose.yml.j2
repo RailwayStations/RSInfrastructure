@@ -49,6 +49,23 @@ services:
     labels:
       org.label-schema.group: "monitoring"
 
+  goneb:
+    image: matrixdotorg/go-neb
+    container_name: goneb
+    volumes:
+      - ./goneb/data:/data
+      - ./goneb/config:/etc/goneb
+    environment:
+      - CONFIG_FILE=/etc/goneb/config.yaml
+      - BASE_URL=http://goneb:4050
+    restart: unless-stopped
+    expose:
+      - 4050
+    networks:
+      - monitor-net
+    labels:
+      org.label-schema.group: "monitoring"
+
   nodeexporter:
     image: prom/node-exporter:{{ node_exporter_version }}
     container_name: nodeexporter

@@ -51,3 +51,12 @@ Setup only the exporters on the railwaystations server:
 ```sh
 ansible-playbook -i hosts.yml -l railwaystations monitoring.yml --ask-become-pass --ask-vault-pass
 ```
+
+### Services
+
+- Prometheus: https://prometheus.io/
+- Grafana: https://grafana.com/
+- Node Exporter: https://github.com/prometheus/node_exporter
+- Blackbox Exporter: https://github.com/prometheus/blackbox_exporter
+- Caddy: https://caddyserver.com/
+- Matrix Bot: https://github.com/matrix-org/go-neb
