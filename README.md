@@ -60,3 +60,11 @@ ansible-playbook -i hosts.yml -l railwaystations monitoring.yml --ask-become-pas
 - Blackbox Exporter: https://github.com/prometheus/blackbox_exporter
 - Caddy: https://caddyserver.com/
 - Matrix Bot: https://github.com/matrix-org/go-neb
+
+Create matrix access_token for rsapi user:
+
+```sh
+curl -X POST --header 'Content-Type: application/json' -d '{
+    "identifier": { "type": "m.id.user", "user": "@rsapi:matrix.org" },
+    "password": "rsapi-password", "type": "m.login.password"}' 'https://matrix.org/_matrix/client/r0/login'
+```
