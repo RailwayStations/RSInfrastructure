@@ -1,4 +1,8 @@
 h2951065.stratoserver.net {
+	redir https://monitoring.storchp.de{uri}
+}
+
+monitoring.storchp.de {
     basicauth /prometheus* {
         {$ADMIN_USER} {$ADMIN_PASSWORD_HASH}
     }
@@ -12,6 +16,10 @@ h2951065.stratoserver.net {
     }
     handle_path /alertmanager* {
         reverse_proxy alertmanager:9093
+    }
+
+    handle_path / {
+        redir https://monitoring.storchp.de/grafana
     }
 
     handle_path /grafana* {
