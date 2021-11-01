@@ -6,53 +6,53 @@
     state: directory
     mode: 0755
 
+- name: Check docker-compose.yml exists
+  stat:
+    path: "{{ monitoring_dir }}/docker-compose.yml"
+  register: register_compose_file
+
+- name: Compose down
+  become: true
+  community.docker.docker_compose:
+    project_src: "{{ monitoring_dir }}"
+    state: absent
+  when: register_compose_file.stat.exists
+
 - name: compose file
   become: true
   template:
     src: "docker-compose.yml.j2"
     dest: "{{ monitoring_dir }}/docker-compose.yml"
-  notify:
-    - restart monitoring
 
 - name: caddy file
   become: true
   ansible.builtin.copy:
     src: "./files/caddy"
     dest: "{{ monitoring_dir }}/"
-  notify:
-    - restart monitoring
 
 - name: prometheus file
   become: true
   ansible.builtin.copy:
     src: "./files/prometheus"
     dest: "{{ monitoring_dir }}/"
-  notify:
-    - restart monitoring
 
 - name: alertmanager file
   become: true
   ansible.builtin.copy:
     src: "./files/alertmanager"
     dest: "{{ monitoring_dir }}/"
-  notify:
-    - restart monitoring
 
 - name: blackboxexporter file
   become: true
   ansible.builtin.copy:
     src: "./files/blackboxexporter"
     dest: "{{ monitoring_dir }}/"
-  notify:
-    - restart monitoring
 
 - name: grafana file
   become: true
   ansible.builtin.copy:
     src: "./files/grafana"
     dest: "{{ monitoring_dir }}/"
-  notify:
-    - restart monitoring
 
 - name: create goneb directories
   become: true
@@ -68,20 +68,15 @@
   template:
     src: "goneb.config.yaml.j2"
     dest: "{{ monitoring_dir }}/goneb/config/config.yaml"
-  notify:
-    - restart monitoring    
 
 - name: rsapi datasource
   become: true
   template:
     src: "rsapi-datasource.yml.j2"
     dest: "{{ monitoring_dir }}/grafana/provisioning/datasources/rsapi-datasource.yml"
-  notify:
-    - restart monitoring    
 
 - name: Run `docker-compose up`
   become: true
   community.docker.docker_compose:
     project_src: "{{ monitoring_dir }}"
     build: no
-  register: output    
