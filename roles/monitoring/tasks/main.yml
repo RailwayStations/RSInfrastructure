@@ -30,6 +30,13 @@
     src: "./files/caddy"
     dest: "{{ monitoring_dir }}/"
 
+- name: create caddy data directory
+  become: true
+  file:
+    path: "{{ monitoring_dir }}/caddy/data"
+    state: directory
+    mode: 0755
+
 - name: prometheus file
   become: true
   ansible.builtin.copy:

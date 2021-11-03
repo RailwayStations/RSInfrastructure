@@ -146,7 +146,8 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./caddy:/etc/caddy
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
+      - ./caddy/data:/data
     environment:
       - ADMIN_USER=${ADMIN_USER:-{{ admin_user }}}
       - ADMIN_PASSWORD=${ADMIN_PASSWORD:-{{ admin_password }}}

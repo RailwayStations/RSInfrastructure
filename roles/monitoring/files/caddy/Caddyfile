@@ -1,3 +1,13 @@
+{
+    # email to use on Let's Encrypt
+    email info@storchp.de
+
+    # Uncomment for debug
+    #acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
+        acme_ca https://acme.zerossl.com/v2/DV90
+	#debug
+}
+
 h2951065.stratoserver.net {
 	redir https://monitoring.storchp.de{uri}
 }
@@ -27,4 +37,3 @@ monitoring.storchp.de {
     }
 
 }
-
