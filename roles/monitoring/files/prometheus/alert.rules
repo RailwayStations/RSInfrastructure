@@ -13,8 +13,8 @@ groups:
 - name: host
   rules:
   - alert: high_cpu_load
-    expr: node_load1 > 3.5
-    for: 120s
+    expr: node_load1 > 7
+    for: 180s
     labels:
       severity: warning
     annotations:
