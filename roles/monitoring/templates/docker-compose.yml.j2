@@ -148,6 +148,7 @@ services:
     volumes:
       - ./caddy/Caddyfile:/etc/caddy/Caddyfile
       - ./caddy/data:/data
+      - /var/fdroid:/var/fdroid
     environment:
       - ADMIN_USER=${ADMIN_USER:-{{ admin_user }}}
       - ADMIN_PASSWORD=${ADMIN_PASSWORD:-{{ admin_password }}}

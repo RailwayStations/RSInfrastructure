@@ -37,3 +37,8 @@ monitoring.storchp.de {
     }
 
 }
+
+fdroid.storchp.de {
+    root * /var/fdroid
+    file_server
+}
