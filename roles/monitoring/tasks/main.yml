@@ -55,7 +55,13 @@
     src: "./files/blackboxexporter"
     dest: "{{ monitoring_dir }}/"
 
-- name: grafana file
+- name: remove grafana dir
+  become: true
+  file:
+    state: absent
+    path: "{{ monitoring_dir }}/grafana/"
+
+- name: upload grafana file
   become: true
   ansible.builtin.copy:
     src: "./files/grafana"
