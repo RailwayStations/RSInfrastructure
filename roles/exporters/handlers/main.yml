@@ -1,8 +1,0 @@
----
-- name: restart exporters
-  community.docker.docker_compose:
-    project_src: "{{ exporters_dir }}"
-    build: no
-    restarted: yes
-  register: output
-

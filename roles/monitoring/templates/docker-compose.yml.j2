@@ -5,95 +5,18 @@ networks:
     driver: bridge
 
 volumes:
-    prometheus_data: {}
-    grafana_data: {}
+    uptime-kuma: {}
 
 services:
 
-  prometheus:
-    image: prom/prometheus:{{ prometheus_version }}
-    container_name: prometheus
+  uptime-kuma:
+    image: louislam/uptime-kuma
+    container_name: uptime-kuma
     volumes:
-      - ./prometheus:/etc/prometheus
-      - prometheus_data:/prometheus
-    command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
-      - '--storage.tsdb.path=/prometheus'
-      - '--web.console.libraries=/etc/prometheus/console_libraries'
-      - '--web.console.templates=/etc/prometheus/consoles'
-      - '--storage.tsdb.retention.time=200h'
-      - '--web.enable-lifecycle'
-      - '--web.external-url=/prometheus/'
-      - '--web.route-prefix=/'
+      - uptime-kuma:/app/data
     restart: unless-stopped
     expose:
-      - 9090
-    networks:
-      - monitor-net
-    labels:
-      org.label-schema.group: "monitoring"
-
-  alertmanager:
-    image: prom/alertmanager:{{ alertmanager_version }}
-    container_name: alertmanager
-    volumes:
-      - ./alertmanager:/etc/alertmanager
-    command:
-      - '--config.file=/etc/alertmanager/config.yml'
-      - '--storage.path=/alertmanager'
-    restart: unless-stopped
-    expose:
-      - 9093
-    networks:
-      - monitor-net
-    labels:
-      org.label-schema.group: "monitoring"
-
-  goneb:
-    image: matrixdotorg/go-neb
-    container_name: goneb
-    volumes:
-      - ./goneb/data:/data
-      - ./goneb/config:/etc/goneb
-    environment:
-      - CONFIG_FILE=/etc/goneb/config.yaml
-      - BASE_URL=http://goneb:4050
-    restart: unless-stopped
-    expose:
-      - 4050
-    networks:
-      - monitor-net
-    labels:
-      org.label-schema.group: "monitoring"
-
-  blackboxexporter:
-    image: prom/blackbox-exporter:master
-    container_name: blackboxexporter
-    volumes:
-      - ./blackboxexporter:/config:ro
-    command:
-      - '--config.file=/config/blackbox.yml'
-    restart: unless-stopped
-    expose:
-      - 9115
-    networks:
-      - monitor-net
-    labels:
-      org.label-schema.group: "monitoring"
-
-  grafana:
-    image: grafana/grafana:{{ grafana_version }}
-    container_name: grafana
-    volumes:
-      - grafana_data:/var/lib/grafana
-      - ./grafana:/etc/grafana
-    environment:
-      - GF_SECURITY_ADMIN_USER=${ADMIN_USER:-{{ admin_user }}}
-      - GF_SECURITY_ADMIN_PASSWORD=${ADMIN_PASSWORD:-{{ admin_password }}}
-      - GF_USERS_ALLOW_SIGN_UP=false
-    restart: unless-stopped
-    expose:
-      - 3000
+      - 3001
     networks:
       - monitor-net
     labels:
@@ -109,10 +32,6 @@ services:
       - ./caddy/Caddyfile:/etc/caddy/Caddyfile
       - ./caddy/data:/data
       - /var/fdroid:/var/fdroid
-    environment:
-      - ADMIN_USER=${ADMIN_USER:-{{ admin_user }}}
-      - ADMIN_PASSWORD=${ADMIN_PASSWORD:-{{ admin_password }}}
-      - ADMIN_PASSWORD_HASH=${ADMIN_PASSWORD_HASH:-{{ admin_password_hash }}}
     restart: unless-stopped
     networks:
       - monitor-net

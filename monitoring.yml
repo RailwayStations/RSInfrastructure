@@ -3,16 +3,5 @@
   vars_files:
     - vars/secret-vars.yml
     - defaults/main.yml
-  vars:
-    - admin_password: "{{ vault_admin_password }}"
-    - admin_password_hash: "{{ vault_admin_password_hash }}"
-    - rsapi_db_password: "{{ vault_mysqldb_password }}"
   roles:
     - monitoring
-
-- hosts: railwaystations
-  vars_files:
-    - vars/secret-vars.yml
-    - defaults/main.yml
-  roles:
-    - exporters

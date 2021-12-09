@@ -1,13 +1,4 @@
 ---
-  node_exporter_version: latest
-  cadvisor_version: latest
-  prometheus_version: latest
-  alertmanager_version: latest
-  grafana_version: latest
   caddy_version: latest
   docker__users:
   - peter
-  monitoring_target: railway-stations.org
-  rsapi_db_url: "{{ monitoring_target }}:3306"
-  rsapi_db_user: readonly
-  rsapi_db: rsapi

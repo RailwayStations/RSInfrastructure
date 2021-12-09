@@ -36,9 +36,7 @@ ansible-playbook -i hosts.yml -l prod wireguard.yml --ask-become-pass --ask-vaul
 
 ## Monitoring
 
-Setup of Prometheus and Grafana for railway-stations.org.
-
-Docker compose files inspired by: https://github.com/stefanprodan/dockprom
+Setup Uptime Kuma for railway-stations.org.
 
 Full production setup:
 
@@ -46,20 +44,11 @@ Full production setup:
 ansible-playbook -i hosts.yml -l prod monitoring.yml --ask-become-pass --ask-vault-pass
 ```
 
-Setup only the exporters on the railwaystations server:
-
-```sh
-ansible-playbook -i hosts.yml -l railwaystations monitoring.yml --ask-become-pass --ask-vault-pass
-```
 
 ### Services
 
-- Prometheus: https://prometheus.io/
-- Grafana: https://grafana.com/
-- Node Exporter: https://github.com/prometheus/node_exporter
-- Blackbox Exporter: https://github.com/prometheus/blackbox_exporter
 - Caddy: https://caddyserver.com/
-- Matrix Bot: https://github.com/matrix-org/go-neb
+- Uptime Kuma: https://github.com/louislam/uptime-kuma
 
 Create matrix access_token for rsapi user:
 
