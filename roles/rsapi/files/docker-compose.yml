@@ -10,7 +10,7 @@ services:
       - /var/www/fotos:/var/rsapi/photos
     restart: unless-stopped
     environment:
-      - RSAPI_LB_CONTEXT=prod
+      - SPRING_PROFILES_ACTIVE=prod
 # using network_mode host, exposing ports has no effect
 #    ports:
 #      - "localhost:8080:8080"

@@ -9,8 +9,8 @@
 - name: rsapi config
   become: true
   template:
-    src: "config.yml.j2"
-    dest: "{{ rsapi_dir }}/config.yml"
+    src: "application-prod.yaml.j2"
+    dest: "{{ rsapi_dir }}/application-prod.yaml"
 
 - name: compose file
   become: true

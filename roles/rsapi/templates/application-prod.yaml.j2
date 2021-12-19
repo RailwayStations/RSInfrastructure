@@ -1,0 +1,57 @@
+---
+spring:
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: rsapi
+    password: {{vault_rsapi_db_password}}
+    url: jdbc:mariadb://localhost:3306/rsapi?useUnicode=yes&characterEncoding=UTF-8
+  liquibase:
+    change-log: classpath:migrations.xml
+    contexts: prod
+
+server:
+  error:
+    whitelabel:
+      enabled: true
+  port: 8080
+  address: 127.0.0.1
+
+management:
+  server:
+    port: 8081 
+    address: 127.0.0.1 
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+logging:
+  level:
+    root: INFO
+
+# application
+workDir: /var/rsapi
+salt: {{vault_rsapi_salt}}
+photoBaseUrl: https://api.railway-stations.org/photos
+inboxBaseUrl: https://api.railway-stations.org/inbox
+mailVerificationUrl: http://map.railway-stations.org/emailVerification.php?token=
+
+# mailer
+mailer:
+  host: mail.railway-stations.org
+  port: 465
+  user: info@railway-stations.org
+  passwd: {{vault_rsapi_smtp_password}}
+  from: info@railway-stations.org
+
+# Mastodon Bot
+mastodon-bot:
+  instanceUrl: https://botsin.space
+  token: {{vault_rsapi_mastodon_token}}
+  stationUrl: https://map.railway-stations.org/station.php
+
+# Matrix Monitor
+matrix:
+  uploadUrl: https://matrix.org/_matrix/media/r0/upload
+  roomUrl: https://matrix.org/_matrix/client/r0/rooms/%21uhCqfYxLoQrCIarGgi:matrix.org/send/m.room.message
+  accessToken: {{vault_rsapi_matrix_access_token}}
