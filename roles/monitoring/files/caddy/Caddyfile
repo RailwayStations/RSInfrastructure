@@ -20,6 +20,15 @@ monitoring.storchp.de {
 }
 
 fdroid.storchp.de {
+
+    handle_path / {
+        redir https://fdroid.storchp.de/fdroid/repo/
+    }
+
+    handle_path /fdroid/ {
+        redir https://fdroid.storchp.de/fdroid/repo/
+    }
+
     root * /var/fdroid
     file_server
 }
