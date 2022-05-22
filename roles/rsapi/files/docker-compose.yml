@@ -3,7 +3,7 @@ version: '2.1'
 services:
 
   rsapi:
-    image: railwaystations/rsapi@sha256:b036515018ecb8f3ee9837f14c727f7f55e925e5ed8b8f6c09cd139c2c605943
+    image: railwaystations/rsapi@sha256:4c9e15d0341fd50ea300585cbd22e59b2d97b7d023ca61ad8b1583fecf3e7875
     container_name: rsapi
     volumes:
       - /var/rsapi:/var/rsapi
