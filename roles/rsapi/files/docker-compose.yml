@@ -1,9 +1,9 @@
-version: '2.1'
+version: "3"
 
 services:
 
   rsapi:
-    image: railwaystations/rsapi@sha256:22ea01acd414cf7d3c368d01e781bde3ca9ac3f03629b0fba92389155d4b30d2
+    image: railwaystations/rsapi
     container_name: rsapi
     volumes:
       - /var/rsapi:/var/rsapi
@@ -18,3 +18,11 @@ services:
     network_mode: "host"
     labels:
       org.label-schema.group: "rsapi"
+
+  watchtower:
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
+    environment:
+      - WATCHTOWER_POLL_INTERVAL=3600
