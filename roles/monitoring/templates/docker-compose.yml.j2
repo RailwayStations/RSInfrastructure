@@ -37,3 +37,11 @@ services:
       - monitor-net
     labels:
       org.label-schema.group: "monitoring"
+
+  watchtower:
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
+    environment:
+      - WATCHTOWER_POLL_INTERVAL=3600
