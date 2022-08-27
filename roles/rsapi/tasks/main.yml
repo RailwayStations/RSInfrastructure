@@ -18,6 +18,12 @@
     src: "./files/docker-compose.yml"
     dest: "{{ rsapi_dir }}/"
 
+- name: access_log file
+  become: true
+  ansible.builtin.copy:
+    src: "./files/access_log.sh"
+    dest: "{{ rsapi_dir }}/"
+
 - name: Run `docker-compose up`
   become: true
   community.docker.docker_compose:
