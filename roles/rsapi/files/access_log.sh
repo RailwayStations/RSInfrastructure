@@ -5,9 +5,9 @@ for f in /var/log/apache2/fotouebersicht_access.log.*.gz ; do gunzip -c "$f" >> 
 
 sed -i 's/.*"\(.*\) HTTP\/.*/\1/g' /tmp/api.log
 sed -i 's/\/..\//\/*\//g' /tmp/api.log
-sed -i 's/?.*//g' /tmp/api.log
+sed -i 's/\([?|&][^=]*=\)[^&]*/\1/g' /tmp/api.log
 sed -i 's/\/Z\?[0-9].*/\/*/g' /tmp/api.log
-sed -i 's/\/[^\/].*.jpg/\/*/g' /tmp/api.log
-sed -i 's/\/[^\/].*.png/\/*/g' /tmp/api.log
+sed -i 's/\/[^\/]*.jpg/\/*/g' /tmp/api.log
+sed -i 's/\/[^\/]*.png/\/*/g' /tmp/api.log
 sed -i 's/Verification\/.*/Verification\/*/g' /tmp/api.log
 sort -u --version-sort /tmp/api.log
