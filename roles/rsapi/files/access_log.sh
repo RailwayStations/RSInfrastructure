@@ -9,5 +9,6 @@ sed -i 's/\([?|&][^=]*=\)[^&]*/\1/g' /tmp/api.log
 sed -i 's/\/Z\?[0-9].*/\/*/g' /tmp/api.log
 sed -i 's/\/[^\/]*.jpg/\/*/g' /tmp/api.log
 sed -i 's/\/[^\/]*.png/\/*/g' /tmp/api.log
+sed -i 's/\/\//\//g' /tmp/api.log
 sed -i 's/Verification\/.*/Verification\/*/g' /tmp/api.log
-sort -u --version-sort /tmp/api.log
+sort --version-sort /tmp/api.log | uniq -c 
