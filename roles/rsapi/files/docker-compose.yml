@@ -3,7 +3,7 @@ version: "3"
 services:
 
   rsapi:
-    image: railwaystations/rsapi
+    image: ghcr.io/railwaystations/rsapi:main
     container_name: rsapi
     volumes:
       - /var/rsapi:/var/rsapi
