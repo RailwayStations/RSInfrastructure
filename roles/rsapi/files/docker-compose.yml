@@ -5,9 +5,11 @@ services:
   rsapi:
     image: ghcr.io/railwaystations/rsapi:main
     container_name: rsapi
+    user: "1010:1011"
+    read_only: true
     volumes:
       - /var/rsapi:/var/rsapi
-      - /var/www/fotos:/var/rsapi/photos
+      - /tmp:/tmp
     restart: unless-stopped
     environment:
       - SPRING_PROFILES_ACTIVE=prod

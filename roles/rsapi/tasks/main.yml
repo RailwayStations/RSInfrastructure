@@ -24,6 +24,20 @@
     src: "./files/access_log.sh"
     dest: "{{ rsapi_dir }}/"
 
+- name: Ensure group "rsapi" exists
+  become: true
+  ansible.builtin.group:
+    name: rsapi
+    state: present
+
+- name: Add the user 'rsapi' to group 'rsapi'
+  become: true
+  ansible.builtin.user:
+    name: rsapi
+    shell: /usr/sbin/nologin
+    comment: Railway-Stations API user
+    group: rsapi    
+
 - name: Run `docker-compose up`
   become: true
   community.docker.docker_compose:
