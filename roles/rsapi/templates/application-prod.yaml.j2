@@ -5,9 +5,6 @@ spring:
     username: rsapi
     password: {{vault_rsapi_db_password}}
     url: jdbc:mariadb://localhost:3306/rsapi?useUnicode=yes&characterEncoding=UTF-8&serverTimezone=UTC&useLegacyDatetimeCode=false&sessionVariables=time_zone='+00:00'
-  liquibase:
-    change-log: classpath:migrations.xml
-    contexts: prod
 
 server:
   error:
@@ -47,7 +44,7 @@ mailer:
 
 # Mastodon Bot
 mastodon-bot:
-  instanceUrl: https://botsin.space
+  instanceUrl: https://zug.network
   token: {{vault_rsapi_mastodon_token}}
   stationUrl: https://map.railway-stations.org/station.php
 
