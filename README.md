@@ -1,4 +1,6 @@
-Railway-Stations.org Infrastructure setup with Ansible
+# Railway-Stations.org Infrastructure setup with Ansible
+
+**Repository moved to https://codeberg.org/RailwayStations/RSInfrastructure**
 
 Docker setup via ansible inspired by https://github.com/nickjj/ansible-docker
 
